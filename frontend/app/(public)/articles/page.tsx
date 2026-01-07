@@ -49,7 +49,7 @@ export default function ArticlesPage() {
                       {coverType === 'video' ? (
                         <video
                           src={cover}
-                          className="h-full w-full object-contain"
+                          className="h-full w-full object-cover"
                           muted
                           loop
                           playsInline
@@ -59,7 +59,7 @@ export default function ArticlesPage() {
                         <img
                           src={cover}
                           alt={ar.title}
-                          className="h-full w-full object-contain"
+                          className="h-full w-full object-cover"
                           loading="lazy"
                           decoding="async"
                         />

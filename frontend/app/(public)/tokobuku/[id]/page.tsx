@@ -8,6 +8,7 @@ import { fetchBeEm, fetchBeEmById } from '@/lib/services'
 import type { BeEm } from '@/lib/types'
 import { getMediaType } from '@/lib/utils'
 import { ParallaxScroll } from '@/components/ui/paralax-scroll-2'
+import { PixelImage } from '@/components/ui/pixel-image'
 
 export default function TokobukuDetailPage() {
   const params = useParams<{ id: string }>()
@@ -114,11 +115,9 @@ export default function TokobukuDetailPage() {
             autoPlay
           />
         ) : cover ? (
-          <img
+          <PixelImage
             src={cover}
-            alt={book.title || 'Book cover'}
-            className="absolute inset-0 h-full w-full object-contain"
-            loading="lazy"
+            grayscaleAnimation
           />
         ) : null}
       </div>

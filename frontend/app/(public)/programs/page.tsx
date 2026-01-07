@@ -26,6 +26,15 @@ const formatDate = (value?: string) => {
   return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 
+const shuffleArray = <T,>(items: T[]) => {
+  const arr = [...items]
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
+
 export default function ProgramsPage() {
   const [programs, setPrograms] = useState<Program[]>([])
   const [allArtists, setAllArtists] = useState<Artist[]>([])
@@ -97,8 +106,8 @@ export default function ProgramsPage() {
         }
       })
       const artists = Array.from(artistMap.values())
-      const shownArtists = artists
-        .sort((a, b) => Number(!b.photo) - Number(!a.photo))
+      const shownArtists =
+        artists.length > 5 ? shuffleArray(artists).slice(0, 5).sort((a, b) => Number(!b.photo) - Number(!a.photo)) : artists
 
       return {
         title: `${program.title}`,
@@ -108,7 +117,7 @@ export default function ProgramsPage() {
               <BlurFade>
               <Link
                 href={`/programs/${program._id || program.id || ''}`}
-                className="relative block w-full h-[50vh] overflow-hidden"
+                className="relative block w-full h-[50vh] "
               >
                 <ImagesSlider
                   images={sliderImages}
@@ -130,7 +139,7 @@ export default function ProgramsPage() {
                   )}
                 </Link>
                 {shownArtists.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <div className="flex flex-wrap items-center gap-3 pt-1 max-w-[60vw]">
                     <AvatarGroup className="flex-row-reverse -space-x-0.5 sm:-space-x-0.5" variant="css">
                       {shownArtists.map((a, idx) => (
                         <AnimatedTooltip
@@ -150,7 +159,7 @@ export default function ProgramsPage() {
                     </AvatarGroup>
                     {artists.length > shownArtists.length && (
                       <span className="text-xs text-[var(--muted-foreground)]">
-                        +{artists.length - shownArtists.length} more collaborators
+                        … and {artists.length - shownArtists.length} more
                       </span>
                     )}
                   </div>

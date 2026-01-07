@@ -101,9 +101,9 @@ export const StickyScroll = ({
             className="pointer-events-none absolute inset-0 z-0 bg-contain bg-center lg:hidden"
             style={{ backgroundImage: `url(${bg})` }}
             initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            animate={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 3.3, ease: "easeIn" }}
           />
         )}
         {bg && bgType === "video" && (

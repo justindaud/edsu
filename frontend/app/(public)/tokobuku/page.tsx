@@ -7,6 +7,15 @@ import { fetchBeEm } from '@/lib/services'
 import type { BeEm } from '@/lib/types'
 import { ParallaxScroll } from '@/components/ui/paralax-scroll-2'
 
+const shuffleArray = <T,>(items: T[]) => {
+  const arr = [...items]
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  return arr
+}
+
 export default function BeEmPage() {
   const [items, setItems] = useState<BeEm[]>([])
   const [loading, setLoading] = useState(true)
@@ -18,7 +27,7 @@ export default function BeEmPage() {
   }, [])
 
   const parallaxItems = useMemo(() => {
-    return items
+    return shuffleArray(items)
       .map((b) => {
         const src = b.thumbnailUrl || b.url || ''
         if (!src) return null

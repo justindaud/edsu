@@ -131,9 +131,9 @@ export default function PublicLanding() {
         }
       })
 
-    // inject program at position 7 (index 6)
+    // inject program at position 6 (index 6)
     if (programItem) {
-      items.splice(6, 0, programItem)
+      items.splice(5, 0, programItem)
     }
 
     return items
