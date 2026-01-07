@@ -1,0 +1,274 @@
+/* globals.css (Tailwind v4 style + shadcn-compatible tokens) */
+
+@plugin "tailwindcss-animate";
+
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+
+/* Tailwind v4 */
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+/* Brand font */
+@font-face {
+  font-family: "Frutiger LT Pro";
+  src: url("/font/Linotype  FrutigerLTProBlack.otf") format("opentype");
+  font-weight: 900;
+  font-style: bold;
+  font-display: swap;
+}
+
+/* =====================================================
+   TOKENS – GALLERY (DEFAULT)
+===================================================== */
+:root {
+  /* FIXED BRAND COLORS */
+  --edsu-green: #6ebdaf;
+  --edsu-pink: #eb008b;
+  --edsu-cream: #fadaa6; /* NOT USED */
+  --edsu-black: #000000;
+  --edsu-white: #ffffff;
+
+  --radius: 0.625rem;
+
+  /* CANVAS */
+  --background: var(--edsu-green);
+  --foreground: var(--edsu-black);
+
+  /* SURFACE */
+  --card: var(--edsu-white);
+  --card-foreground: var(--edsu-black);
+
+  --popover: var(--edsu-white);
+  --popover-foreground: var(--edsu-black);
+
+  /* BRAND SEMANTICS */
+  --primary: var(--edsu-pink);
+  --primary-foreground: var(--edsu-white);
+
+  --secondary: var(--edsu-green);
+  --secondary-foreground: var(--edsu-black);
+
+  --accent: var(--edsu-pink);
+  --accent-foreground: var(--edsu-white);
+
+  --muted: var(--edsu-white);
+  --muted-foreground: var(--edsu-black);
+
+  /* SYSTEM */
+  --destructive: #ef4444;
+  --destructive-foreground: var(--edsu-white);
+
+  --border: var(--edsu-black);
+  --input: var(--edsu-black);
+  --ring: var(--edsu-pink);
+
+  /* SIDEBAR */
+  --sidebar: var(--edsu-white);
+  --sidebar-foreground: var(--edsu-black);
+  --sidebar-primary: var(--edsu-pink);
+  --sidebar-primary-foreground: var(--edsu-white);
+  --sidebar-accent: var(--edsu-green);
+  --sidebar-accent-foreground: var(--edsu-black);
+  --sidebar-border: var(--edsu-black);
+  --sidebar-ring: var(--edsu-pink);
+
+  /* DEPTH */
+  --shadow-soft: 0 18px 50px rgba(0,0,0,0.15);
+  --shadow-pop: 0 18px 50px rgba(235,0,139,0.35);
+}
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+.dark {
+  --background: var(--edsu-black);
+  --foreground: var(--edsu-white);
+
+  --card: #111111;
+  --card-foreground: var(--edsu-white);
+
+  --popover: #111111;
+  --popover-foreground: var(--edsu-white);
+
+  --primary: var(--edsu-pink);
+  --primary-foreground: var(--edsu-white);
+
+  --secondary: var(--edsu-green);
+  --secondary-foreground: var(--edsu-black);
+
+  --border: var(--edsu-green);
+  --input: var(--edsu-green);
+  --ring: var(--edsu-pink);
+
+  --sidebar: #0b0b0b;
+  --sidebar-foreground: var(--edsu-white);
+  --sidebar-primary: var(--edsu-pink);
+  --sidebar-primary-foreground: var(--edsu-white);
+  --sidebar-accent: var(--edsu-green);
+  --sidebar-accent-foreground: var(--edsu-black);
+}
+
+/* =====================================================
+   BASE
+===================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@layer utilities {
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* HEADINGS */
+h1, h2, h3, h4, h5, h6,
+.font-heading {
+  font-family: "Frutiger LT Pro";
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+/* LINKS */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* SELECTION */
+::selection {
+  background: var(--edsu-pink);
+  color: var(--edsu-white);
+}
+
+/* HR */
+hr {
+  border: 0;
+  border-top: 2px solid var(--border);
+  opacity: 0.35;
+}
+
+/* =====================================================
+   COMPONENT HELPERS
+===================================================== */
+
+/* CARD */
+.edsu-card {
+  background: var(--card);
+  color: var(--card-foreground);
+  border: 3px solid var(--edsu-pink);
+  border-radius: calc(var(--radius) + 8px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* INPUT */
+input,
+textarea,
+select {
+  background: var(--edsu-white);
+  border: 3px solid var(--edsu-green);
+  border-radius: calc(var(--radius) + 6px);
+  padding: 12px 14px;
+  font: inherit;
+  color: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--edsu-pink);
+  box-shadow: 0 0 0 4px rgba(235,0,139,0.25);
+}
+
+/* PRIMARY BUTTON */
+.edsu-btn {
+  background: var(--edsu-pink);
+  color: var(--edsu-white);
+  border: none;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: var(--shadow-pop);
+}
+
+.edsu-btn:hover {
+  transform: translateY(-1px);
+}
+
+.edsu-btn:active {
+  transform: translateY(0);
+  opacity: 0.95;
+}
+
+/* =====================================================
+   FUN (OPTIONAL)
+===================================================== */
+@keyframes edsu-float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+.floating-square {
+  width: 3rem;
+  height: 3rem;
+  background: var(--edsu-green);
+  border-radius: 0.5rem;
+  animation: edsu-float 7s infinite;
+}
+
+.floating-circle {
+  width: 3rem;
+  height: 3rem;
+  background: var(--edsu-pink);
+  border-radius: 9999px;
+  animation: edsu-float 7s infinite;
+}
+
+@media (max-width: 768px) {
+  .floating-square,
+  .floating-circle {
+    display: none;
+  }
+}
+
+/* =====================================================
+   TAILWIND TOKEN MAP
+===================================================== */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+}
