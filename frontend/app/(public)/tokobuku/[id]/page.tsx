@@ -95,7 +95,7 @@ export default function TokobukuDetailPage() {
   return (
     <main className="min-h-screen bg-[var(--edsu-cream)] text-[var(--edsu-pink)] px-4 sm:px-6 py-8 sm:py-10 w-full mx-auto">
       <header className="mb-8 space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-[900] uppercase tracking-[0.16em]">
+        <h1 className="text-4xl sm:text-4xl font-[900] uppercase tracking-[0.16em]">
           {book.title || ''}
         </h1>
         <div className="flex flex-wrap gap-3 text-xs uppercase tracking-[0.16em] text-[var(--edsu-black)]">

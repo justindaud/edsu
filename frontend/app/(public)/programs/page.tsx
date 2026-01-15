@@ -182,7 +182,7 @@ export default function ProgramsPage() {
   return (
     <main className="min-h-screen bg-[var(--edsu-white)] text-[var(--edsu-pink)] px-4 sm:px-6 py-8 sm:py-10 w-full mx-auto">
       <header className="mb-8 space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-[900] uppercase tracking-[0.16em]">
+        <h1 className="text-4xl sm:text-4xl font-[900] uppercase tracking-[0.16em]">
           Program5
         </h1>
       </header>

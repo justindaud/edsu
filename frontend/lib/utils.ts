@@ -15,3 +15,33 @@ export function getMediaType(url?: string, type?: string): 'image' | 'video' | '
   if (/\.(jpg|jpeg|png|gif|webp|avif)(\?.*)?$/.test(lowerUrl)) return 'image'
   return 'unknown'
 }
+
+export function imgproxy(src: string, opts?: { w?: number; h?: number }) {
+  if (!src) return ""
+  
+  const base = process.env.NEXT_PUBLIC_IMGPROXY_URL?.replace(/\/+$/, "")
+  const media = process.env.NEXT_PUBLIC_MEDIA_URL
+  const minio = process.env.NEXT_PUBLIC_MINIO_LOCAL_URL
+  
+  if (!base || !media || !minio) return src
+
+  const w = opts?.w ?? 0
+  const h = opts?.h ?? 0
+
+  let finalSrc = src
+
+  try {
+    const srcUrl = new URL(src)
+    const mediaUrl = new URL(media)
+
+    if (srcUrl.host === mediaUrl.host) {
+      const minioUrl = new URL(minio)
+      srcUrl.protocol = minioUrl.protocol
+      srcUrl.host = minioUrl.host
+      finalSrc = srcUrl.toString()
+    }
+  } catch {
+    return src
+  }
+  return `${base}/insecure/rs:fit:${w}:${h}/plain/${finalSrc}`
+}

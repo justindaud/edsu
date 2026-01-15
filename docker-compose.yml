@@ -8,9 +8,9 @@ services:
       - ./backend/.env.local
     environment:
       NODE_ENV: production
-      PORT: 5002
+      PORT: 5006
     ports:
-      - "5002:5002"
+      - "5006:5006"
     restart: unless-stopped
 
   frontend:
@@ -21,7 +21,7 @@ services:
     environment:
       NODE_ENV: production
     ports:
-      - "3000:3000"
+      - "5007:5007"
     depends_on:
       - backend
     restart: unless-stopped

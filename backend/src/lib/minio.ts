@@ -40,7 +40,7 @@ export const ensureBucket = async () => {
   }
 }
 
-const publicBase = `http${MINIO_USE_SSL === 'true' ? 's' : ''}://${MINIO_ENDPOINT}:${MINIO_PORT}` || MINIO_PUBLIC_URL
+const publicBase = MINIO_PUBLIC_URL
 const imgproxyBase = IMGPROXY_URL || ''
 
 export const uploadBufferToMinio = async (opts: {

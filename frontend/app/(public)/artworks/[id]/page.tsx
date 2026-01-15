@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { fetchArtwork, fetchArtworks, fetchArtists, fetchPrograms } from '@/lib/services'
-import { getMediaType } from '@/lib/utils'
+import { getMediaType, imgproxy } from '@/lib/utils'
 import type { Media, Artist, Program } from '@/lib/types'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
 import { ProfilePeek } from '@/components/ui/profile-peek'
@@ -128,17 +128,19 @@ export default function ArtworkDetail() {
   }
   if (!artwork) return <div></div>
 
+  
+
   return (
     <main className="min-h-screen bg-[var(--edsu-white)] text-[var(--edsu-pink)] px-4 sm:px-6 py-8 sm:py-10 w-full mx-auto">
       <div className="space-y-4">
           <div className="relative w-full h-[60vh] overflow-hidden">
             <PixelImage
-              src={(artwork.thumbnailUrl || artwork.url)}
+              src={artwork.url || ''}
               grayscaleAnimation
             />
           </div>
         <div className="space-y-2">
-          <h1 className="text-2xl sm:text-3xl font-[900] leading-tight">{artwork.title || ''}</h1>
+          <h1 className="text-4xl sm:text-4xl font-[900] uppercase tracking-[0.16em]">{artwork.title || ''}</h1>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             {artist && (
               <ProfilePeek
@@ -150,6 +152,7 @@ export default function ArtworkDetail() {
                     aria-label={`Peek ${artist.name}`}
                   >
                     <span className="relative h-10 w-10 overflow-hidden rounded-full bg-black">
+                      
                       {getMediaType(
                         (artist.photo as any)?.thumbnailUrl ||
                           (artist.photo as any)?.url ||
@@ -167,13 +170,7 @@ export default function ArtworkDetail() {
                         />
                       ) : (
                         <img
-                          src={
-                            (artist.photo as any)?.thumbnailUrl ||
-                            (artist.photo as any)?.url ||
-                            artwork?.thumbnailUrl ||
-                            artwork?.url ||
-                            ''
-                          }
+                          src={imgproxy(((artist.photo as any)?.thumbnailUrl || (artist.photo as any)?.url || artwork?.thumbnailUrl || artwork?.url || ''), { w: 200 })}
                           alt={artist.name}
                           className="absolute inset-0 h-full w-full object-cover"
                           loading="lazy"

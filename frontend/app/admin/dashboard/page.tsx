@@ -47,7 +47,7 @@ import { DatePicker } from '@/components/ui/date-picker'
 import { Search } from 'lucide-react'
 import { toast } from '@/components/ui/sonner'
 import { Spinner } from '@/components/ui/spinner'
-import { getMediaType } from '@/lib/utils'
+import { getMediaType, imgproxy } from '@/lib/utils'
 import {
   Accordion,
   AccordionContent,
@@ -882,7 +882,7 @@ export default function AdminDashboard() {
                           <div className="relative overflow-hidden min-h-[240px] bg-muted flex items-center justify-center">
                             {selectedPreview && selectedPreviewType === 'image' && (
                               <img
-                                src={selectedPreview}
+                                src={imgproxy(selectedPreview, { w: 400 })}
                                 alt={form.title || 'Preview'}
                                 className="absolute inset-0 h-full w-full object-contain bg-white"
                               />
@@ -1199,7 +1199,7 @@ export default function AdminDashboard() {
               />
             ) : (
               <img
-                src={previewItemRef.current?.src || ''}
+                src={imgproxy(((previewItemRef.current)?.src || ''), { w: 200 })}
                 alt={previewItemRef.current?.title || 'Preview'}
                 className="max-h-[70vh] w-full object-contain"
               />
@@ -1236,7 +1236,7 @@ function MediaChip({
       }`}
     >
       <div className="aspect-square bg-muted">
-        <img src={img} alt={m.title || ''} className="h-full w-full object-cover decoding='async'" />
+        <img src={imgproxy(img, {w:400})} alt={m.title || ''} className="h-full w-full object-cover decoding='async'" />
       </div>
       <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition" />
       <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs px-2 py-1 truncate">
@@ -1340,7 +1340,7 @@ const MediaCard = memo(function MediaCard({
           <iframe src={row.url || img} className="h-full w-full bg-white" title={title} />
         ) : (
           <img
-            src={img}
+            src={imgproxy(img, { w: 400 })}
             alt={title}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             loading="lazy"
@@ -1577,7 +1577,7 @@ function ArticleMulti({
             >
               <div className="aspect-[4/3] bg-muted flex items-center justify-center">
                 {a.coverImage ? (
-                  <img src={a.coverImage} alt={a.title || ''} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                  <img src={imgproxy(a.coverImage, { w: 400 })} alt={a.title || ''} className="h-full w-full object-cover" loading="lazy" decoding="async" />
                 ) : (
                   <span className="px-2 text-xs text-muted-foreground text-center">{a.title || ''}</span>
                 )}
@@ -1680,7 +1680,7 @@ function ArtistMulti({
               }`}
             >
               <div className="aspect-[4/3] bg-muted flex items-center justify-center">
-                <img src={img} alt={a.name || ''} className="h-full w-full object-cover" />
+                <img src={imgproxy(img, {w:400})} alt={a.name || ''} className="h-full w-full object-cover" />
               </div>
               <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs px-2 py-1 truncate">
                 {a.name || ''}

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
 import { Timeline } from "@/components/ui/timeline"
 import { fetchArticles } from "@/lib/services"
-import { getMediaType } from "@/lib/utils"
+import { getMediaType, imgproxy } from "@/lib/utils"
 import { BlurFade } from "@/components/ui/blur-fade"
 import { RevealOnScroll } from "@/components/ui/reveal-on-scroll"
 
@@ -57,7 +57,7 @@ export default function ArticlesPage() {
                         />
                       ) : cover ? (
                         <img
-                          src={cover}
+                          src={imgproxy(cover, { w: 720 })}
                           alt={ar.title}
                           className="h-full w-full object-cover"
                           loading="lazy"
@@ -74,7 +74,7 @@ export default function ArticlesPage() {
                     </Link>
                   </div>
                   <Link
-                    href={`/programs/${ar._id || ar.id || ''}`}
+                    href={`/articles/${ar._id || ar.id || ''}`}
                     className="inline-flex text-sm font-semibold text-[var(--primary)] underline underline-offset-4"
                   >
                     Continue reading
@@ -90,7 +90,7 @@ export default function ArticlesPage() {
   return (
     <main className="min-h-screen bg-[var(--edsu-white)] text-[var(--edsu-pink)] px-4 sm:px-6 py-8 sm:py-10 w-full mx-auto">
       <header className="mb-8 space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-[900] uppercase tracking-[0.16em]">Article5</h1>
+        <h1 className="text-4xl sm:text-4xl font-[900] uppercase tracking-[0.16em]">Article5</h1>
       </header>
 
       {loading && (

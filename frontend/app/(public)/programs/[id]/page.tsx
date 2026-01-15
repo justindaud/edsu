@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { fetchProgram, fetchPrograms, fetchArtists } from '@/lib/services'
-import { getMediaType } from '@/lib/utils'
+import { getMediaType, imgproxy } from '@/lib/utils'
 import type { Artist, Program } from '@/lib/types'
 import { BlurFade } from '@/components/ui/blur-fade'
 import { ImagesSlider } from '@/components/ui/images-slider'
@@ -178,7 +178,7 @@ export default function ProgramDetail() {
           >
             {avatar && avatarType !== 'video' ? (
               <img
-                src={avatar}
+                src={imgproxy(avatar, { w: 720 })}
                 alt={a.name}
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -360,7 +360,7 @@ export default function ProgramDetail() {
                       <div className="relative h-[20vh] w-full">
                         {src && !isVideo ? (
                           <img
-                            src={src}
+                            src={imgproxy(src, { w: 400 })}
                             alt={aw.title || ''}
                             className="absolute inset-0 h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                             loading="lazy"
@@ -429,7 +429,7 @@ export default function ProgramDetail() {
                       />
                     ) : article.coverImage ? (
                       <img
-                        src={article.coverImage}
+                        src={imgproxy(article.coverImage, { w: 720 })}
                         alt={article.title}
                         className="h-full w-full object-cover"
                       />
@@ -487,7 +487,7 @@ export default function ProgramDetail() {
                           />
                         ) : (
                           <img
-                            src={coverSrc}
+                            src={imgproxy(coverSrc, { w: 400 })}
                             alt={p.title}
                             className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                             loading="lazy"

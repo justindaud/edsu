@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { fetchArtist, fetchArtworks, fetchArtists } from '@/lib/services'
-import { getMediaType } from '@/lib/utils'
+import { getMediaType, imgproxy } from '@/lib/utils'
 import type { Artist, Media } from '@/lib/types'
 import { RevealOnScroll } from '@/components/ui/reveal-on-scroll'
 import { BlurFade } from '@/components/ui/blur-fade'
@@ -115,7 +115,7 @@ export default function ArtistDetail() {
                       />
                     ) : (
                       <Image className="absolute inset-0 h-full w-full object-contain"
-                        src={aw.url || ''}
+                        src={imgproxy(aw.url, { w: 400 })}
                         alt={aw.title || ''}
                         width={720}
                         height={720}
@@ -158,7 +158,7 @@ export default function ArtistDetail() {
                       <div className="relative h-10 w-10 overflow-hidden rounded-full bg-[var(--edsu-green)]">
                         {avatarSrc && avatarType !== 'video' ? (
                           <Image className="absolute inset-0 h-full w-full object-cover"
-                            src={avatarSrc}
+                            src={imgproxy(avatarSrc, { w: 200})}
                             alt={a.name}
                             width={720}
                             height={720}

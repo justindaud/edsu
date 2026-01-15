@@ -59,7 +59,7 @@ export default function BeEmPage() {
   return (
     <main className="min-h-screen bg-[var(--edsu-cream)] text-[var(--edsu-pink)] px-4 sm:px-6 py-8 sm:py-10 w-full mx-auto">
       <header className="space-y-2">
-        <h1 className="text-2xl sm:text-3xl font-[900] uppercase tracking-[0.16em]">ToKo8uKu Y6n9T6u</h1>
+        <h1 className="text-4xl sm:text-4xl font-[900] uppercase tracking-[0.16em]">ToKo8uKu Y6n9T6u</h1>
       </header>
 
       {loading ? (

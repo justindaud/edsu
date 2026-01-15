@@ -1,5 +1,5 @@
 "use client";
-import { cn, getMediaType } from "@/lib/utils";
+import { cn, getMediaType, imgproxy } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import React, { useEffect, useState } from "react";
 
@@ -24,9 +24,17 @@ export const ImagesSlider = ({
   const [loading, setLoading] = useState(false);
   const [loadedImages, setLoadedImages] = useState<string[]>([]);
   const mediaItems = React.useMemo(
-    () => images.map((src) => ({ src, type: getMediaType(src) })),
+    () =>
+      images.map((src) => {
+        const type = getMediaType(src)
+        return {
+          src,
+          type,
+          proxySrc: type === "image" ? imgproxy(src, { w: 720, h: 0 }) : src,
+        }
+      }),
     [images]
-  );
+  )
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -41,30 +49,30 @@ export const ImagesSlider = ({
   };
 
   useEffect(() => {
-    loadImages();
-  }, []);
+  const targets = mediaItems
+    .filter((x) => x.type === "image")
+    .map((x) => x.proxySrc);
 
-  const loadImages = () => {
-    setLoading(true);
-    const loadPromises = mediaItems
-      .filter((item) => item.type === "image")
-      .map((item) => {
-      const image = item.src;
-      return new Promise((resolve, reject) => {
+  if (targets.length === 0) {
+    setLoadedImages([]);
+    return;
+  }
+
+  const loadPromises = targets.map(
+    (url) =>
+      new Promise<string>((resolve, reject) => {
         const img = new Image();
-        img.src = image;
-        img.onload = () => resolve(image);
-        img.onerror = reject;
-      });
-    });
-
-    Promise.all(loadPromises)
-      .then((loadedImages) => {
-        setLoadedImages(loadedImages as string[]);
-        setLoading(false);
+        img.src = url;
+        img.onload = () => resolve(url);
+        img.onerror = () => reject(new Error("load failed"));
       })
-      .catch((error) => console.error("Failed to load images", error));
-  };
+  );
+
+  Promise.all(loadPromises)
+    .then(setLoadedImages)
+    .catch((err) => console.error("Failed to load images", err));
+  }, [mediaItems]);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
@@ -124,7 +132,7 @@ export const ImagesSlider = ({
   const areImagesLoaded =
     mediaItems.length > 0 &&
     mediaItems.every(
-      (item) => item.type !== "image" || loadedImages.includes(item.src)
+      (item) => item.type !== "image" || loadedImages.includes(item.proxySrc)
     );
 
   return (
@@ -163,7 +171,7 @@ export const ImagesSlider = ({
           ) : (
             <motion.img
               key={currentIndex}
-              src={mediaItems[currentIndex]?.src}
+              src={mediaItems[currentIndex]?.proxySrc}
               initial="initial"
               animate="visible"
               exit={direction === "up" ? "upExit" : "downExit"}

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { fetchPrograms, fetchMedia, fetchArtists, fetchArticles, fetchBeEm, fetchArtworks } from '@/lib/services'
 import type { Program, Media, Artist, Article, BeEm } from '@/lib/types'
 import { HeroParallax } from '@/components/ui/hero-parallax'
-import { getMediaType } from '@/lib/utils'
+import { getMediaType, imgproxy } from '@/lib/utils'
 
 type SectionMedia = Media | null
 
@@ -161,7 +161,7 @@ export default function PublicLanding() {
               />
             ) : heroSrc ? (
               <div className="relative h-screen w-full bg-black">
-                <img src={heroSrc} alt="Hero" className="absolute inset-0 h-full w-full object-cover" />
+                <img src={imgproxy(heroSrc, { w: 1024})} alt="Hero" className="absolute inset-0 h-full w-full object-cover" />
               </div>
             ) : null}
             <div className="absolute inset-0 bg-black/35" />

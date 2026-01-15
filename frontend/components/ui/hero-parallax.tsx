@@ -7,7 +7,7 @@ import {
   useSpring,
   MotionValue,
 } from "motion/react";
-import { getMediaType } from "@/lib/utils";
+import { getMediaType, imgproxy } from "@/lib/utils";
 
 
 
@@ -170,7 +170,7 @@ export const ProductCard = ({
           />
         ) : (
           <img
-            src={product.thumbnail}
+            src={imgproxy(product.thumbnail, { w: 400 })}
             height="400"
             width="400"
             className="object-contain object-center absolute h-full w-full inset-0"

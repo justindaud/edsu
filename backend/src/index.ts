@@ -12,7 +12,7 @@ if (!process.env.JWT_SECRET) {
 }
 
 const app = express()
-const PORT = parseInt(process.env.PORT || '5002', 10)
+const PORT = parseInt(process.env.PORT || '5006', 10)
 const HOST = process.env.HOST || '0.0.0.0'
 
 
@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 // Log environment variables (remove in production)
 console.log('Environment variables loaded:')
 console.log('JWT_SECRET:', process.env.JWT_SECRET ? 'Set ✅' : 'Not set ❌')
-console.log('PORT:', process.env.PORT || '5002 (default)')
+console.log('PORT:', process.env.PORT || '5006 (default)')
 
 
 app.listen(PORT, HOST, () => {

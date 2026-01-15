@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion } from "motion/react";
 import { Lens } from "@/components/ui/lens";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { cn, getMediaType } from "@/lib/utils";
+import { cn, getMediaType, imgproxy } from "@/lib/utils";
 import { FlipCard } from "@/components/ui/flip-card";
 
 export const ParallaxScroll = ({
@@ -66,7 +66,7 @@ export const ParallaxScroll = ({
       />
     ) : (
       <img
-        src={el.src}
+        src={imgproxy(el.src, { w: 400 })}
         className="h-full w-full object-contain object-left-top gap-10 !m-0 !p-0"
         height="400"
         width="400"

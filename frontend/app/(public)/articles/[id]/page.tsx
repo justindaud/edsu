@@ -11,7 +11,7 @@ import {
   IconShare,
 } from "@tabler/icons-react";
 import { fetchArticle, fetchArticles } from "@/lib/services";
-import { getMediaType } from "@/lib/utils";
+import { getMediaType, imgproxy } from "@/lib/utils";
 import type { Article } from "@/lib/types";
 
 const renderFormattedText = (text: string) => {
@@ -169,7 +169,7 @@ export default function ArticleDetailPage() {
   return (
     <main className="min-h-screen bg-[var(--edsu-white)] px-4 sm:px-6 py-8 sm:py-10 w-full mx-auto">
       <header className="mb-6 space-y-2 text-[var(--edsu-pink)]">
-        <h1 className="text-2xl sm:text-3xl font-[900] uppercase tracking-[0.16em]">
+        <h1 className="text-4xl sm:text-4xl font-[900] uppercase tracking-[0.16em]">
           {article.title}
         </h1>
         <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.16em] text-[var(--edsu-black)]">
@@ -220,7 +220,7 @@ export default function ArticleDetailPage() {
           />
         ) : cover ? (
           <img
-            src={cover}
+            src={imgproxy(cover, { w: 720 })}
             alt={article.title}
             className="h-full w-full object-cover"
             loading="lazy"
@@ -264,7 +264,7 @@ export default function ArticleDetailPage() {
                         />
                       ) : (
                         <img
-                          src={itemCover}
+                          src={imgproxy(itemCover, { w: 400 })}
                           alt={item.title}
                           className="h-full w-full object-cover"
                           loading="lazy"
